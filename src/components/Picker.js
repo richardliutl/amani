@@ -10,13 +10,28 @@ class Picker extends Component {
     super(props);
 
     this.state = {
-        category: "american"
+        category: "american",
+        catering: false,
+        rating: "any-rating"
     };
+
   }
 
-  handleChange(event) {
+  handleCategoryChange = (event) => {
     this.setState({
         category: event.target.value
+    });
+  }
+
+  handleCateringChange = (event) => {
+    this.setState({
+        catering: event.target.value
+    });
+  }
+
+  handleRatingChange = (event) => {
+    this.setState({
+        rating: event.target.value
     });
   }
 
@@ -26,11 +41,11 @@ class Picker extends Component {
         <p>Enter your preferences for the restaurant.</p>
         <div className="Picker-item">
             <label className="Picker-label">Catering</label>
-            <input type="checkbox" id="catering"></input>
+            <input type="checkbox" id="catering" value={this.state.catering} onChange={this.handleCateringChange}></input>
         </div>
         <div className="Picker-item">
             <label className="Picker-label">Category</label>
-            <select defaultValue="american" value={this.state.category} onChange={this.handleChange}>
+            <select defaultValue="american" value={this.state.category} onChange={this.handleCategoryChange}>
                 <option value="american">American</option>
                 <option value="indian">Indian</option>
                 <option value="asian">Asian</option>
@@ -46,12 +61,12 @@ class Picker extends Component {
         </div>
         <div className="Picker-item">
             <label className="Picker-label">Rating</label>
-            <select defaultValue="4.5">
+            <select defaultValue="4.5" value={this.state.rating} onChange={this.handleRatingChange}>
                 <option value="4.5">Over 4.5</option>
                 <option value="4.0">Over 4.0</option>
                 <option value="3.5">Over 3.5</option>
                 <option value="3.0">Over 3.0</option>
-                <option value="Any rating">Any rating</option>
+                <option value="any-rating">Any rating</option>
             </select>
         </div>
         <div className="Picker-button">
