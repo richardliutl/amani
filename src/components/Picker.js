@@ -76,6 +76,8 @@ class Picker extends Component {
             <RestaurantCard 
                 name="Beantown Taqueria"
                 rating="4.6"
+                address="245 Massachusetts Ave, Cambridge, MA 02139"
+                description="American breakfasts plus Mexican & Tex-Mex dishes plated in local, low-key cafe with colorful decor."
             />
         </div>
       </>

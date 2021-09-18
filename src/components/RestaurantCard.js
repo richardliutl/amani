@@ -12,10 +12,12 @@ class RestaurantCard extends Component {
 
   render() {
     return (
-      <>
+      <div className="RestaurantCard-container">
         <h2 className="RestaurantCard-title">{this.props.name}</h2>
         <h3 className="RestaurantCard-rating">Rating: {this.props.rating}</h3>
-      </>
+        <p className="RestaurantCard-address">{this.props.address}</p>
+        <p className="RestaurantCard-description">{this.props.description}</p>
+      </div>
     );
   }
 }
