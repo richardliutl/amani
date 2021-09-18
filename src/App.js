@@ -1,15 +1,14 @@
 import './App.css';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
+import Picker from './components/Picker';
 
 function App() {
   return (
     <div>
       <NavBar/>
-      <header className="App-body">
-        <p>
-          Welcome to Amani!
-        </p>
-      </header>
+      <div className="App-body">
+        <Picker/>
+      </div>
     </div>
   );
 }
