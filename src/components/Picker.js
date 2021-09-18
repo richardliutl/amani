@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import BigAssWheel from "./BigAssWheel";
 
 import "./Picker.css";
-import RestaurantCard from "./RestaurantCard";
 
 /**
  * The navigation bar at the top of all pages. Takes no props.
@@ -10,10 +10,24 @@ class Picker extends Component {
   constructor(props) {
     super(props);
 
+    const data = [
+      {"label":"Dell LAPTOP",  "value":1,  "question":"What CSS property is used for specifying the area between the content and its border?"}, // padding
+      {"label":"IMAC PRO",  "value":2,  "question":"What CSS property is used for changing the font?"}, //font-family
+      {"label":"SUZUKI",  "value":3,  "question":"What CSS property is used for changing the color of text?"}, //color
+      {"label":"HONDA",  "value":4,  "question":"What CSS property is used for changing the boldness of text?"}, //font-weight
+      {"label":"FERRARI",  "value":5,  "question":"What CSS property is used for changing the size of text?"}, //font-size
+      {"label":"APARTMENT",  "value":6,  "question":"What CSS property is used for changing the background color of a box?"}, //background-color
+      {"label":"IPAD PRO",  "value":7,  "question":"Which word is used for specifying an HTML tag that is inside another tag?"}, //nesting
+      {"label":"LAND",  "value":8,  "question":"Which side of the box is the third number in: margin:1px 1px 1px 1px; ?"}, //bottom
+      {"label":"MOTOROLLA",  "value":9,  "question":"What are the fonts that don't have serifs at the ends of letters called?"}, //sans-serif
+      {"label":"BMW", "value":10, "question":"With CSS selectors, what character prefix should one use to specify a class?"}
+    ];
+
     this.state = {
         category: "american",
         catering: false,
-        rating: "any-rating"
+        rating: "any-rating",
+        wheelData: data,
     };
   }
 
@@ -73,12 +87,8 @@ class Picker extends Component {
             <input type="button" value="Spin da wheel"></input>
         </div>
         <div className="Picker-wheel">
-            <RestaurantCard 
-                name="Beantown Taqueria"
-                rating="4.6"
-                address="245 Massachusetts Ave, Cambridge, MA 02139"
-                description="American breakfasts plus Mexican & Tex-Mex dishes plated in local, low-key cafe with colorful decor."
-            />
+            {/* <h1>giant ass spinning wheel</h1> */}
+            <BigAssWheel data={this.state.wheelData} />
         </div>
       </>
     );
