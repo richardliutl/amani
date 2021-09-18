@@ -1,0 +1,11 @@
+.NavBar-container {
+  margin: 0;
+  background-color: #395E66;
+}
+
+.NavBar-title {
+  color: white;
+  font-size: 30px;
+  margin-top: 0;
+  padding: 10px;
+}
