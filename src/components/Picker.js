@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import "./Picker.css";
+import RestaurantCard from "./RestaurantCard";
 
 /**
  * The navigation bar at the top of all pages. Takes no props.
@@ -14,7 +15,6 @@ class Picker extends Component {
         catering: false,
         rating: "any-rating"
     };
-
   }
 
   handleCategoryChange = (event) => {
@@ -73,7 +73,10 @@ class Picker extends Component {
             <input type="button" value="Spin da wheel"></input>
         </div>
         <div className="Picker-wheel">
-            <h1>giant ass spinning wheel</h1>
+            <RestaurantCard 
+                name="Beantown Taqueria"
+                rating="4.6"
+            />
         </div>
       </>
     );
