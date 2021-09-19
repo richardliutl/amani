@@ -26,4 +26,3 @@ __pycache__
 ./api/key.py
 ./api/env.py
 ./api/venv
-api
