@@ -1,5 +1,5 @@
 import googlemaps
-from key import api_key
+from env import api_key
 from datetime import datetime
 
 gmaps = googlemaps.Client(key= api_key)
