@@ -2,6 +2,10 @@ import pyrebase
 from env import firebaseConfig
 import fetch
 
+from flask import Flask
+
+app = Flask(__name__)
+
 def push_user(db, data):
   user_id = data["id"]
   db.child("Users").child(user_id).push(data)
@@ -19,8 +23,8 @@ def get_all_restauants(db, args):
   result = db.child("Restaurant").child(restaurant_id).get()
   return result
 
-
-if __name__=="__main__":
+@app.route("/")
+def root():
   firebase = pyrebase.initialize_app(firebaseConfig)
   db = firebase.database()
   results = fetch.get_results()
@@ -30,6 +34,4 @@ if __name__=="__main__":
   r["catering"] = False
   set_field(db, r)
   result = get_all_restauants(db, r)
-  print(result.val())
-
-
+  return result.val()
