@@ -235,7 +235,7 @@ const BigAssWheel = ({
             vis.transition()
                 .duration(3000)
                 .attrTween("transform", rotTween)
-                .each("end", function(){
+                .on("end", function(){
                     // //mark question as seen
                     // d3.select(".slice:nth-child(" + (picked + 1) + ") path")
                     //     .attr("fill", "#111");
