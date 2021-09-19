@@ -15,7 +15,7 @@ export const useD3 = (renderChartFn, dependencies) => {
 }
 
 const BigAssWheel = ({
-    data, ...props
+    data, setAngle, ...props
 }) => {
     const [restaurant, setRestaurant] = useState("");
 
