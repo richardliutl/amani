@@ -15,7 +15,10 @@ def set_field(db, data):
   db.child("Restaurant").child(restaurant_id).update(data)
 
 def get_all_restauants(db, args):
-  pass
+  restaurant_id = args["place_id"]
+  result = db.child("Restaurant").child(restaurant_id).get()
+  return result
+
 
 if __name__=="__main__":
   firebase = pyrebase.initialize_app(firebaseConfig)
@@ -26,5 +29,7 @@ if __name__=="__main__":
   push_restaurant(db, r)
   r["catering"] = False
   set_field(db, r)
+  result = get_all_restauants(db, r)
+  print(result.val())
 
 
