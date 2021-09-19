@@ -25,15 +25,21 @@ const BigAssWheel = ({
     const color = d3.scaleSequential(d3.interpolateMagma).domain([0,11]);
     const path = d3.arc()
             .outerRadius(r - padding.right)
-            .innerRadius((r - padding.right) / 2);
+            .innerRadius((r - padding.right) * 0.3);
     let rotation = 0,
         oldrotation = 0,
         picked = 100000,
         oldpick = [];
 
+    props.spinning = false;
+
     function calcTranslate(data, move = 4) {
       const moveAngle = data.startAngle + ((data.endAngle - data.startAngle) / 2);
       return `translate(${- move * Math.cos(moveAngle + Math.PI / 2)}, ${- move * Math.sin(moveAngle + Math.PI / 2)})`;
+    }
+    
+    function textColor(d) {
+        return d3.hsl(color(d)).l > 0.5 ? "#000" : "#fff";
     }
 
     // const bigData = [
@@ -180,8 +186,8 @@ const BigAssWheel = ({
             // .attr("d", function (d) { return arc(d); });
         // add the text
         arcs.append("text").attr("transform", function(d){
-            d.innerRadius = 0;
-            d.outerRadius = r;
+            d.innerRadius = (r - padding.right)*0.5;
+            d.outerRadius = (r - padding.right)*0.9;
             console.log(d);
             d.angle = (d.startAngle + d.endAngle)/2;
             return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
@@ -189,11 +195,20 @@ const BigAssWheel = ({
         .attr("text-anchor", "end")
         .text( function(d, i) {
             return data[i].label;
+        })
+        .style("fill", (d, i) => {
+            console.log("ok: " + textColor(i));
+            return textColor(i);
         });
+
         container.on("click", spin);
         function spin(d){
-            
-            container.on("click", null);
+            if (props.spinning) {
+              return;
+            } else {
+              props.spinning = true;
+              console.log(props.spinning);
+            }
             //all slices have been seen, all done
             console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
             if(oldpick.length == data.length){
@@ -233,7 +248,8 @@ const BigAssWheel = ({
                     // console.log(data[picked].value)
               
                     /* Comment the below line for restrict spin to sngle time */
-                    container.on("click", spin);
+                    // container.on("click", spin);
+                    props.spinning = false;
                 });
         }
         //make arrow
@@ -243,12 +259,12 @@ const BigAssWheel = ({
             .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
             .style({"fill":"black"});
         //draw spin circle
-        container.append("circle")
-            .attr("cx", 0)
-            .attr("cy", 0)
-            .attr("r", 60)
-            .style("fill", "white")
-            .style("cursor", "pointer");
+        // container.append("circle")
+        //     .attr("cx", 0)
+        //     .attr("cy", 0)
+        //     .attr("r", r*0.3)
+        //     .style("fill", "white")
+        //     .style("cursor", "pointer");
         //spin text
         container.append("text")
             .attr("x", 0)
@@ -287,8 +303,8 @@ const BigAssWheel = ({
       <svg
         ref={ref}
         style={{
-          height: 500,
-          width: "100%",
+          height: h+"px",
+          width: w+"px",
           marginRight: "0px",
           marginLeft: "0px",
         }}
