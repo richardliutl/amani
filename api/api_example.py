@@ -7,7 +7,7 @@ gmaps = googlemaps.Client(key= api_key)
 # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
 # print(geocode_result)
 
-results = gmaps.places(query="restaurants", radius=1000)['results']
+results = gmaps.places(query="restaurants in Cambridge, MA", radius=1000)['results']
 # gives you a list of dictionaries, where each dictionary corresponds to a place
 
 # for dic in results:
@@ -15,9 +15,11 @@ results = gmaps.places(query="restaurants", radius=1000)['results']
 
 for dic in results:
     for k in dic.copy():
-        if k not in {'name', 'rating', 'price_level', 'formatted_address', 'opening_hours', 'user_ratings_total'}:
+        if k not in {"place_id", 'name', 'rating', 'price_level', 'formatted_address', 'opening_hours', 'user_ratings_total'}:
             del dic[k]
         dic['url'] = "https://maps.google.com/?q=" + dic['formatted_address']
+results = sorted(results, key = lambda x: x['rating'], reverse = True)
+results = results[:10] # first 10 results
 
 print(results)
 
