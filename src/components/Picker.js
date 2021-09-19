@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BigAssWheel from "./BigAssWheel";
+import ActiveOption from "./ActiveOption";
 
 import "./Picker.css";
 
@@ -10,25 +11,21 @@ class Picker extends Component {
   constructor(props) {
     super(props);
 
-    const data = [
-      {"label":"Dell LAPTOP",  "value":1,  "question":"What CSS property is used for specifying the area between the content and its border?"}, // padding
-      {"label":"IMAC PRO",  "value":2,  "question":"What CSS property is used for changing the font?"}, //font-family
-      {"label":"SUZUKI",  "value":3,  "question":"What CSS property is used for changing the color of text?"}, //color
-      {"label":"HONDA",  "value":4,  "question":"What CSS property is used for changing the boldness of text?"}, //font-weight
-      {"label":"FERRARI",  "value":5,  "question":"What CSS property is used for changing the size of text?"}, //font-size
-      {"label":"APARTMENT",  "value":6,  "question":"What CSS property is used for changing the background color of a box?"}, //background-color
-      {"label":"IPAD PRO",  "value":7,  "question":"Which word is used for specifying an HTML tag that is inside another tag?"}, //nesting
-      {"label":"LAND",  "value":8,  "question":"Which side of the box is the third number in: margin:1px 1px 1px 1px; ?"}, //bottom
-      {"label":"MOTOROLLA",  "value":9,  "question":"What are the fonts that don't have serifs at the ends of letters called?"}, //sans-serif
-      {"label":"BMW", "value":10, "question":"With CSS selectors, what character prefix should one use to specify a class?"}
-    ];
+    const data = [{'formatted_address': '450 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': 'Veggie Galaxy', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJJ5JOZVR344kRd62Nb9Yo06s', 'price_level': 2, 'rating': 4.7, 'user_ratings_total': 2969, 'url': 'https://maps.google.com/?q=450 Massachusetts Ave, Cambridge, MA 02139, United States'}, {'formatted_address': '928 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': "Pammy's", 'opening_hours': {'open_now': true}, 'place_id': 'ChIJC35Yf1B344kRAg1CTTMsPU8', 'price_level': 3, 'rating': 4.7, 'user_ratings_total': 536, 'url': 'https://maps.google.com/?q=928 Massachusetts Ave, Cambridge, MA 02139, United States'}, {'formatted_address': '134 Hampshire St, Cambridge, MA 02139, United States', 'name': 'Oleana', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJr3IT1LJw44kRT5T9CYsihK4', 'price_level': 3, 'rating': 4.7, 'user_ratings_total': 1192, 'url': 'https://maps.google.com/?q=134 Hampshire St, Cambridge, MA 02139, United States'}, {'formatted_address': '765 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': 'Life Alive Organic Cafe', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJLb3sGVF344kRl8CdANSNwDI', 'price_level': 2, 'rating': 4.6, 'user_ratings_total': 1751, 'url': 'https://maps.google.com/?q=765 Massachusetts Ave, Cambridge, MA 02139, United States'}, {'formatted_address': '505 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': 'Little Donkey', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJGTS3dVR344kRy3uxf6fp5CE', 'price_level': 2, 'rating': 4.5, 'user_ratings_total': 1608, 'url': 'https://maps.google.com/?q=505 Massachusetts Ave, Cambridge, MA 02139, United States'}, {'formatted_address': '24 Pearl St, Cambridge, MA 02139, United States', 'name': 'Rangzen Tibetan Place', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJVxZ8HVR344kRTTbait6B334', 'price_level': 2, 'rating': 4.5, 'user_ratings_total': 401, 'url': 'https://maps.google.com/?q=24 Pearl St, Cambridge, MA 02139, United States'}, {'formatted_address': '546 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': 'Five Spices House', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJxVSOzfd344kR1jlxoNiN3Bk', 'price_level': 2, 'rating': 4.5, 'user_ratings_total': 217, 'url': 'https://maps.google.com/?q=546 Massachusetts Ave, Cambridge, MA 02139, United States'}, {'formatted_address': '739 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': 'Asmara', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJkSq1F1F344kRqz4wC8PzNjY', 'price_level': 2, 'rating': 4.5, 'user_ratings_total': 429, 'url': 'https://maps.google.com/?q=739 Massachusetts Ave, Cambridge, MA 02139, United States'}, {'formatted_address': '567 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': 'Brick & Mortar', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJB1ld91N344kR0s6509oBiak', 'price_level': 2, 'rating': 4.4, 'user_ratings_total': 601, 'url': 'https://maps.google.com/?q=567 Massachusetts Ave, Cambridge, MA 02139, United States'}, {'formatted_address': '524 Massachusetts Ave, Cambridge, MA 02139, United States', 'name': 'The Mad Monkfish', 'opening_hours': {'open_now': true}, 'place_id': 'ChIJ837FC1R344kRVlYqVsoSQew', 'price_level': 2, 'rating': 4.4, 'user_ratings_total': 1590, 'url': 'https://maps.google.com/?q=524 Massachusetts Ave, Cambridge, MA 02139, United States'}];
 
     this.state = {
         category: "american",
         catering: false,
         rating: "any-rating",
         wheelData: data,
+        wheelAngle: 0,
     };
+  }
+
+  handleAngleChange = (wheelAngle) => {
+    this.setState({
+        wheelAngle: wheelAngle
+    });
   }
 
   handleCategoryChange = (event) => {
@@ -50,6 +47,10 @@ class Picker extends Component {
   }
 
   render() {
+    function setAngle(t) {
+      this.props.wheelAngle = t;
+    }
+
     return (
       <>
         <p>Enter your preferences for the restaurant.</p>
@@ -86,9 +87,10 @@ class Picker extends Component {
         <div className="Picker-button">
             <input type="button" value="Spin da wheel"></input>
         </div>
+        <ActiveOption data={this.state.wheelData} wheelAngle={this.state.wheelAngle}/>
         <div className="Picker-wheel">
             {/* <h1>giant ass spinning wheel</h1> */}
-            <BigAssWheel data={this.state.wheelData} />
+            <BigAssWheel data={this.state.wheelData} setAngle={this.handleAngleChange}/>
         </div>
       </>
     );

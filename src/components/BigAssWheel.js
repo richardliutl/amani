@@ -155,19 +155,18 @@ const BigAssWheel = ({
             .attr('stroke', 'white');
             // .attr("d", function (d) { return arc(d); });
         // add the text
-        arcs.append("text").attr("transform", function(d){
+        arcs.append("text")
+        .attr("transform", function(d){
             d.innerRadius = (r - padding.right)*0.5;
             d.outerRadius = (r - padding.right)*0.9;
-            console.log(d);
             d.angle = (d.startAngle + d.endAngle)/2;
             return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
         })
         .attr("text-anchor", "end")
         .text( function(d, i) {
-            return data[i].label;
+            return data[i].name;
         })
         .style("fill", (d, i) => {
-            console.log("ok: " + textColor(i));
             return textColor(i);
         });
 
@@ -177,17 +176,17 @@ const BigAssWheel = ({
               return;
             } else {
               props.spinning = true;
-              console.log(props.spinning);
             }
             //all slices have been seen, all done
+            // console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
             if(oldpick.length == data.length){
-                console.log("done");
+                // console.log("done");
                 container.on("click", null);
                 return;
             }
             var  ps       = 360/data.length,
                  pieslice = Math.round(1440/data.length),
-                 rng      = Math.floor((Math.random() * 1440) + 360);
+                 rng      = Math.floor((Math.random() * 1440) + 720);
                 
             rotation = (Math.round(rng / ps) * ps);
             
@@ -199,7 +198,10 @@ const BigAssWheel = ({
             // } else {
             //     oldpick.push(picked);
             // }
-            rotation += 90 - Math.round(ps/2);
+            // rotation += 90 - Math.round(ps/2);
+            console.log(rotation);
+            rotation -= 0.5*ps // for artificial offset
+            console.log(rotation);
             vis.transition()
                 .duration(3000)
                 .attrTween("transform", rotTween)
@@ -210,7 +212,7 @@ const BigAssWheel = ({
                     // //populate question
                     // d3.select("#question h1")
                     //     .text(data[picked].question);
-                    // oldrotation = rotation;
+                    oldrotation = rotation;
               
                     // /* Get the result value from object "data" */
                     // console.log(data[picked].value)
@@ -218,14 +220,13 @@ const BigAssWheel = ({
                     /* Comment the below line for restrict spin to sngle time */
                     // container.on("click", spin);
                     props.spinning = false;
-                    setRestaurant(data[picked].label);
                 });
         }
         //make arrow
         svg.append("g")
-            .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
+            .attr("transform", "translate(" + (w/2 + padding.left) + "," + (padding.top) + ")")
             .append("path")
-            .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
+            .attr("d", "M-" + (r*.05) + ",0L0," + (r*.15) + "L0,-" + (r*.05) + "Z")
             .style({"fill":"black"});
         //draw spin circle
         // container.append("circle")
@@ -247,6 +248,7 @@ const BigAssWheel = ({
         function rotTween(to) {
           var i = d3.interpolate(oldrotation % 360, rotation);
           return function(t) {
+            setAngle(i(t));
             return "rotate(" + i(t) + ")";
           };
         }
@@ -255,7 +257,6 @@ const BigAssWheel = ({
             var array = new Uint16Array(1000);
             if(window.hasOwnProperty("crypto") && typeof window.crypto.getRandomValues === "function"){
                 window.crypto.getRandomValues(array);
-                console.log("works");
             } else {
                 //no support for crypto, get crappy random numbers
                 for(var i=0; i < 1000; i++){
