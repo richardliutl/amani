@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from '@reach/router'
 
 import "./NavBar.css";
 
@@ -12,10 +13,18 @@ class NavBar extends Component {
 
   render() {
     return (
-      <nav className="NavBar-container">
-        <p className="NavBar-title">
-          Amani
-        </p>
+      <nav className="NavBar-container">      
+        <Link to="/">
+          <p className="NavBar-title">
+            Amani
+          </p>
+        </Link>
+        <Link to="/login">
+          <p className="NavBar-login">
+            Login
+          </p>
+        </Link>
+        
       </nav>
     );
   }
