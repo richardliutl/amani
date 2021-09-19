@@ -28,4 +28,9 @@ api/key.py
 =======
 ./api/key.py
 ./api/env.py
+<<<<<<< HEAD
 >>>>>>> 4f97d92202261ca6f842acc1e2c5bed430a88478
+=======
+./api/venv
+api
+>>>>>>> 6ec978eeb216d7eb411af70b13a5b9601405d95f
