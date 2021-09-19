@@ -22,7 +22,6 @@ def get_results():
     results = sorted(results, key = lambda x: x['rating'], reverse = True)
     results = results[:10] # first 10 results
 
-    print(results)
     return results
 
 # Look up an address with reverse geocoding
