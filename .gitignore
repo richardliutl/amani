@@ -23,6 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 __pycache__
-./api/key.py
-./api/env.py
-./api/venv
+api/env.py
+api/key.py
+api/venv/*
