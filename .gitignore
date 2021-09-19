@@ -23,4 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 __pycache__
+<<<<<<< HEAD
 api/key.py
+=======
+./api/key.py
+./api/env.py
+>>>>>>> 4f97d92202261ca6f842acc1e2c5bed430a88478
