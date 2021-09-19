@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+__pycache__
+api/env.py
+api/key.py
+api/venv/*
